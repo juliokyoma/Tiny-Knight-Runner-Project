@@ -57,7 +57,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (!onGround)
         {
-            vector2.y += gravity * Time.fixedDeltaTime;
+            if(vector2.y > -50)
+            {
+                vector2.y += gravity * Time.fixedDeltaTime;
+            }
           
             
         }
