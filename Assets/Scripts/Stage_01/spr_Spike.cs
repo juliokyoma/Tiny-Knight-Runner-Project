@@ -9,7 +9,7 @@ public class spr_Spike : MonoBehaviour
     public PlayerLife playerLife;
     void Update()
     {
-        transform.Translate(Vector2.left * generator.CurrentSpeedSpike * Time.deltaTime);
+        transform.Translate(Vector2.left * generator.CurrentSpeedSpike * Time.fixedDeltaTime);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
