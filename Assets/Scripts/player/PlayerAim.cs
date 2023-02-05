@@ -18,7 +18,7 @@ public class PlayerAim : MonoBehaviour
     {
         
        mousePosition = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
-       transform.RotateAround(this.transform.parent.position, Vector3.forward, 1f);
+       transform.RotateAround(this.transform.parent.position, Vector3.forward, 0);
        transform.LookAt(mousePosition);
 
 

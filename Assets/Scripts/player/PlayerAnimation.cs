@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,7 +8,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     public enum State { idle, running, jumping, hurt, attacking }
     public State state;
-
+    float num = Mathf.Sin(1);
 
     #region Intanciating
     private PlayerMovement playerMovement;
@@ -24,14 +25,18 @@ public class PlayerAnimation : MonoBehaviour
     #endregion
     private void Update()
     {
+       
         if (GameManager.IsPlaying)
         { //se estiver jogando
 
             VelocityState();// verifica a velocidade 
             animator.SetInteger("State", (int)state);// atribui animações
         }
-        PlayerRotateWalking(0.1f);
-       
+        //quaternion pos = transform.rotation;
+        //pos.value.z = math.sin(1);
+        //transform.rotation = pos;
+        //transform.Rotate(0, 0, math.lerp(2f,2f,100f));
+        transform.Rotate(0,0,math.lerp(1f,1f,Mathf.Sin(1f)) );
     }
 
     private void VelocityState()
@@ -103,9 +108,9 @@ public class PlayerAnimation : MonoBehaviour
     {
 
     }
-    public void PlayerRotate(float degreesPerSecond)
+    public void PlayerRotate()
     {
-        transform.Rotate(0, 0, degreesPerSecond * Time.deltaTime);
+        transform.Rotate(0, 0, math.lerp(2f, 2f, 100f));
     }
     public void PlayerRotateWalking(float degreesPerSecond)
     {
