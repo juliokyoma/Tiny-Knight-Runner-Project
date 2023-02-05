@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    public enum State { idle, running, jumping, hurt, empty }
+    public enum State { idle, running, jumping, hurt, attacking }
     public State state;
 
 
@@ -29,7 +30,8 @@ public class PlayerAnimation : MonoBehaviour
             VelocityState();// verifica a velocidade 
             animator.SetInteger("State", (int)state);// atribui animações
         }
-
+        PlayerRotateWalking(0.1f);
+       
     }
 
     private void VelocityState()
@@ -37,6 +39,11 @@ public class PlayerAnimation : MonoBehaviour
 
         if (state == State.hurt)
         {
+
+        }
+        else if (state == State.attacking)
+        {
+
 
         }
         else if (state == State.jumping)
@@ -99,6 +106,33 @@ public class PlayerAnimation : MonoBehaviour
     public void PlayerRotate(float degreesPerSecond)
     {
         transform.Rotate(0, 0, degreesPerSecond * Time.deltaTime);
+    }
+    public void PlayerRotateWalking(float degreesPerSecond)
+    {
+        Vector3 position = transform.position;
+        bool leaningLeft = true;
+        bool leaningRight = false;
+
+
+        if (leaningLeft == true)
+        {
+            position.z += degreesPerSecond;
+            if(position.z >= 3f)
+            {
+                leaningLeft = false;
+                leaningRight= true;
+            }
+        }
+        if (leaningRight == true)
+        {
+            position.z -= degreesPerSecond ;
+            if (position.z <= -3f)
+            {
+                leaningLeft = true;
+                leaningRight = false;
+            }
+        }
+        transform.position = position;
     }
     #endregion
 
