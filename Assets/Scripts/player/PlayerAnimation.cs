@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -9,6 +10,15 @@ public class PlayerAnimation : MonoBehaviour
     public enum State { idle, running, jumping, hurt, attacking }
     public State state;
     float num = Mathf.Sin(1);
+
+    #region Player rotate walking variables
+    [Header("Player Rotate Walking Animation")]
+    [SerializeField] float n = 1;
+    [SerializeField] bool leaningLeft = true;
+    [SerializeField] bool leaningRight = false;
+    [SerializeField] quaternion limit = new quaternion(0, 0, 1, 0);
+    #endregion
+
 
     #region Intanciating
     private PlayerMovement playerMovement;
@@ -30,17 +40,26 @@ public class PlayerAnimation : MonoBehaviour
         { //se estiver jogando
 
             VelocityState();// verifica a velocidade 
-            animator.SetInteger("State", (int)state);// atribui animações
+           
         }
         //quaternion pos = transform.rotation;
         //pos.value.z = math.sin(1);
         //transform.rotation = pos;
         //transform.Rotate(0, 0, math.lerp(2f,2f,100f));
-        transform.Rotate(0,0,math.lerp(1f,1f,Mathf.Sin(1f)) );
+        // transform.Rotate(0,0,math.lerp(1f,1f,Mathf.Sin(1f)) );
+        //PlayerRotateWalking(1f);
+       
+        
+
+    }
+    private void Start()
+    {
+        
     }
 
     private void VelocityState()
     {
+        animator.SetInteger("State", (int)state); // atribui animações
 
         if (state == State.hurt)
         {
@@ -58,7 +77,7 @@ public class PlayerAnimation : MonoBehaviour
         }
         else if (state == State.running)
         {
-            
+            LearningWalking(0.1f, 0.03f);
         }
         else
         {
@@ -108,21 +127,23 @@ public class PlayerAnimation : MonoBehaviour
     {
 
     }
+
     public void PlayerRotate()
     {
-        transform.Rotate(0, 0, math.lerp(2f, 2f, 100f));
+        transform.Rotate(0, 0, math.lerp(2f, 2f, Mathf.Sin(1f)));
     }
-    public void PlayerRotateWalking(float degreesPerSecond)
-    {
-        Vector3 position = transform.position;
-        bool leaningLeft = true;
-        bool leaningRight = false;
 
+    public void LearningWalking(float velocity, float amoutOfRotate)
+    {
+        
 
         if (leaningLeft == true)
         {
-            position.z += degreesPerSecond;
-            if(position.z >= 3f)
+            print("learningleft");
+            spriteRenderer.transform.Rotate(0,0, n);
+            n = 0;
+            n += velocity;
+            if(transform.rotation.normalized.z >= amoutOfRotate)
             {
                 leaningLeft = false;
                 leaningRight= true;
@@ -130,16 +151,20 @@ public class PlayerAnimation : MonoBehaviour
         }
         if (leaningRight == true)
         {
-            position.z -= degreesPerSecond ;
-            if (position.z <= -3f)
+            print("learningright");
+            n = 0;
+            n -= velocity;
+            spriteRenderer.transform.Rotate(0, 0, n);
+            if (transform.rotation.normalized.z <= -amoutOfRotate)
             {
                 leaningLeft = true;
                 leaningRight = false;
             }
         }
-        transform.position = position;
+        
     }
     #endregion
+
 
     public void SetStateIdle()
     {

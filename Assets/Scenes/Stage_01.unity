@@ -659,7 +659,7 @@ Transform:
   m_GameObject: {fileID: 294998213}
   m_LocalRotation: {x: -0, y: -0, z: 0.27612808, w: 0.9611209}
   m_LocalPosition: {x: -0.03574705, y: 2.9999998, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1021579363}
@@ -678,6 +678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePosition: {x: 0, y: 0, z: 0}
+  vector3PlayerPosition: {x: 0, y: 0, z: 0}
+  aimPosition: {x: 0, y: 0, z: 0}
   closeMouse: 0
 --- !u!212 &294998216
 SpriteRenderer:
@@ -3039,6 +3041,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  n: 0.025244128
+  leaningLeft: 1
+  leaningRight: 0
+  limit:
+    value:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
 --- !u!50 &1021579375
 Rigidbody2D:
   serializedVersion: 4
