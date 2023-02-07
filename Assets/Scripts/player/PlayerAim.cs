@@ -6,34 +6,44 @@ using UnityEngine.Windows;
 
 public class PlayerAim : MonoBehaviour
 {
-    private GameObject player;
+   
 
-    public Vector3 mousePosition;
-    public Vector3 vector3PlayerPosition;
-    public Vector3 aimPosition;
+    public Vector2 mousePosition;
+    public Vector2 vector2PlayerPosition;
+    public Vector2 aimPosition;
     public float closeMouse;
+    public float angle;
+    public float angleplayermouse;
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("player");
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        vector3PlayerPosition = Camera.main.ScreenToWorldPoint(this.transform.parent.position); 
         mousePosition = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
+        vector2PlayerPosition = this.transform.parent.position;
+        aimPosition = mousePosition - vector2PlayerPosition;
 
-        aimPosition.z = Vector3.Angle(vector3PlayerPosition, mousePosition);
-        //transform.RotateAround(this.transform.parent.position, vec, 1);
+        
+        angle = Mathf.Atan2(aimPosition.y, aimPosition.x) * Mathf.Rad2Deg * 90f ;
+        
+        
+            RotateAim();
 
-        transform.LookAt(mousePosition,Vector3.forward);
-
-
+        //RotateAim();
         //transform.LookAt(mousePosition);
-      
-
-        //transform.Rotate(-5 * Time.deltaTime, 0,0);
+       //transform.Rotate(-5 * Time.deltaTime, 0,0);
         // input.mousePosition.x, Input.mousePosition.y, 5
       
+    }
+    void RotateAim()
+    {
+        transform.RotateAround(this.transform.parent.position, Vector3.forward, angle);
+    }
+    void uptadeMouseposition()
+    {
+        
     }
 }
