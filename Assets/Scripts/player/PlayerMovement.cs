@@ -42,6 +42,10 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
+    #region Events
+    
+    #endregion
+
 
     void Update()
     {
@@ -94,6 +98,8 @@ public class PlayerMovement : MonoBehaviour
         isHoldingJump = true;
 
         playerAnimation.state = PlayerAnimation.State.jumping;
+
+         
     }
     public void PlayerJumpPerformed()
     {
