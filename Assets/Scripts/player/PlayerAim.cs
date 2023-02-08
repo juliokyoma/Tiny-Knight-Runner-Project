@@ -6,14 +6,14 @@ using UnityEngine.Windows;
 
 public class PlayerAim : MonoBehaviour
 {
-   
+    #region Player aim variables
+    [SerializeField] private Vector2 mousePosition;
+    [SerializeField] private Vector2 vector2PlayerPosition;
+    [SerializeField] private Vector2 aimPosition;
 
-    public Vector2 mousePosition;
-    public Vector2 vector2PlayerPosition;
-    public Vector2 aimPosition;
-    public float closeMouse;
-    public float angle;
-    public float angleplayermouse;
+    [SerializeField] private float angle;
+    [SerializeField] private float angleplayermouse;
+    #endregion
     private void Awake()
     {
        
@@ -42,8 +42,5 @@ public class PlayerAim : MonoBehaviour
     {
         transform.RotateAround(this.transform.parent.position, Vector3.forward, angle);
     }
-    void uptadeMouseposition()
-    {
-        
-    }
+     
 }
