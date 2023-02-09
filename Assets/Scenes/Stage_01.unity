@@ -680,7 +680,6 @@ MonoBehaviour:
   mousePosition: {x: 0, y: 0}
   vector2PlayerPosition: {x: 0, y: 0}
   aimPosition: {x: 0, y: 0}
-  closeMouse: 0
   angle: 0
   angleplayermouse: 0
 --- !u!212 &294998216
