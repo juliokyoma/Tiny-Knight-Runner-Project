@@ -27,33 +27,53 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private LayerMask layerGround;
 
+    #region Events
+
+    public delegate void playerAttack();
+    public event playerAttack OnPlayerAttacked;
+    
+
+    #endregion
+
     #region Instancing
 
     private Rigidbody2D rigdbody2D; //variável do rigdbody que adiciona fisica na unity
     private BoxCollider2D boxCollider2D;
     public PlayerAnimation playerAnimation;
 
-    void Awake()
+    void Awake() 
     {
         rigdbody2D = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
 
+        
     }
-    #endregion
-
-    #region Events
-    
     #endregion
 
 
     void Update()
     {
        
-        
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            PlayerAttack();
+        }
 
     }
-        #region Jump Control
+    #region Attack
+    void PlayerAttack()
+    {
+        Debug.Log("Player Attacked");
+        if (OnPlayerAttacked != null)
+        {
+            OnPlayerAttacked();
+        }
+    }
+    #endregion
+
+
+    #region Jump Control
     private void FixedUpdate()
     {
         onGround = IsGrounded();

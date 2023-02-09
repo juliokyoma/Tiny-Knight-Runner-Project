@@ -29,7 +29,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();  
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        playerMovement.OnPlayerAttacked += SetHurtAnimation;
     }
 
     #endregion
