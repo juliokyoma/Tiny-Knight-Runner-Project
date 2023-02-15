@@ -21,6 +21,7 @@ public class PlayerAnimation : MonoBehaviour
 
 
     #region Intanciating
+    private PlayerInput playerInput;
     private PlayerMovement playerMovement;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -30,9 +31,11 @@ public class PlayerAnimation : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        playerInput = GetComponent<PlayerInput>();
 
-        playerMovement.OnPlayerAttacked += SetHurtAnimation;
+        PlayerInput.OnPlayerAttacked += SetHurtAnimation;
     }
+    
 
     #endregion
     private void Update()
@@ -171,5 +174,9 @@ public class PlayerAnimation : MonoBehaviour
     public void SetStateIdle()
     {
         state = State.idle;
+    }
+    private void SetStateJumping()
+    {
+        state = State.jumping;
     }
 }
