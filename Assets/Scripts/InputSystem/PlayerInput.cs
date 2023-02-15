@@ -11,15 +11,29 @@ public class PlayerInput : MonoBehaviour
     private float TValue;
     public HudManager hudManager;
 
+    #region Events
+    public delegate void playerAttack();
+    public static event playerAttack OnPlayerAttacked;
+
+    public delegate void playerMove();
+    public static event playerMove OnPlayerMove;
+
+    public delegate void playerJump(ref float force);
+    public static event playerJump OnPlayerJump;                    
+    #endregion
+
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
         playerMovement = GetComponent<PlayerMovement>();
-        playerAnimation = GetComponent<PlayerAnimation>();  
+        playerAnimation = GetComponent<PlayerAnimation>();
 
-        playerInputActions.Player.Jump.started += context => playerMovement.PlayerJumpStarted(ref playerMovement.jumpForce) ;
-        playerInputActions.Player.Jump.performed += context => playerMovement.PlayerJumpPerformed();
+        playerInputActions.Player.Jump.started += context => playerMovement.PlayerJumpStarted(ref playerMovement.jumpForce);
+        
         playerInputActions.Player.Jump.canceled += context => playerMovement.PlayerJumpCanceled();
+
+        playerInputActions.Player.Attack.started += context => OnPlayerAttacked();
+
         playerInputActions.Player.Pause.started += context => hudManager.PauseGame();
     }
     private void FixedUpdate()

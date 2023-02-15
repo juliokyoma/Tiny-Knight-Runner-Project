@@ -29,8 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Events
 
-    public delegate void playerAttack();
-    public event playerAttack OnPlayerAttacked;
+    
     
 
     #endregion
@@ -47,7 +46,8 @@ public class PlayerMovement : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
 
-        
+        PlayerInput.OnPlayerAttacked += PlayerAttack;
+        PlayerInput.OnPlayerJump += PlayerJumpStarted;
     }
     #endregion
 
@@ -65,10 +65,7 @@ public class PlayerMovement : MonoBehaviour
     void PlayerAttack()
     {
         Debug.Log("Player Attacked");
-        if (OnPlayerAttacked != null)
-        {
-            OnPlayerAttacked();
-        }
+        
     }
     #endregion
 
@@ -121,10 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
          
     }
-    public void PlayerJumpPerformed()
-    {
-
-    }
+    
     public void PlayerJumpCanceled() 
     {
         isHoldingJump = false;
@@ -143,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     #endregion
-
 
 
     #region Collisions
